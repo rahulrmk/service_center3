@@ -92,8 +92,8 @@ class Ability
 
   def tester_permissions(models)
     models.each do |model_name|
-      can :read, model_name.constantize
-      can :manage, model_name.constantize
+      can :read, Bank
+      can :manage, Bank
     end
     can :manage, UnapprovedRecord, approvable_type: @group.try(:model_list)
   end

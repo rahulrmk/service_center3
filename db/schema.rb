@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_28_122216) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_06_104225) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -80,6 +80,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_122216) do
     t.index ["jobno"], name: "aq$_schedules_check", unique: true
   end
 
+  create_table "audits", force: :cascade do |t|
+    t.integer "auditable_id", precision: 38
+    t.string "auditable_type"
+    t.integer "associated_id", precision: 38
+    t.string "associated_type"
+    t.integer "user_id", precision: 38
+    t.string "user_type"
+    t.string "username"
+    t.string "action"
+    t.text "audited_changes"
+    t.integer "version", precision: 38, default: 0
+    t.string "comment"
+    t.string "remote_address"
+    t.datetime "created_at"
+    t.index ["associated_id", "associated_type"], name: "associated_index"
+    t.index ["auditable_id", "auditable_type"], name: "auditable_index"
+    t.index ["created_at"], name: "index_audits_on_created_at"
+    t.index ["user_id", "user_type"], name: "user_index"
+  end
+
   create_table "banks", force: :cascade do |t|
     t.string "ifsc"
     t.string "name"
@@ -100,6 +120,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_122216) do
     t.string "audits"
     t.string "audit"
     t.index ["ifsc", "approval_status"], name: "index_banks_on_ifsc_and_approval_status", unique: true
+  end
+
+  create_table "bm_apps", force: :cascade do |t|
+    t.string "app_id", limit: 20, null: false
+    t.string "channel_id", limit: 20, null: false
+    t.integer "lock_version", precision: 38, null: false
+    t.string "approval_status", limit: 1, null: false
+    t.string "last_action", limit: 1
+    t.integer "approved_version", precision: 38
+    t.integer "approved_id", precision: 38
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "bm_bill_payments", force: :cascade do |t|
@@ -740,6 +772,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_122216) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "incoming_files", force: :cascade do |t|
+    t.string "service_name", limit: 10
+    t.string "file_type", limit: 10
+    t.string "file"
+    t.string "file_name", limit: 50
+    t.integer "size_in_bytes", precision: 38
+    t.integer "line_count", precision: 38
+    t.string "status", limit: 1
+    t.date "started_at"
+    t.date "ended_at"
+    t.string "created_by", limit: 20
+    t.string "updated_by", limit: 20
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "inw_guidelines", force: :cascade do |t|
     t.string "code", limit: 5, null: false, comment: "the identifier for the guideline"
     t.string "allow_neft", limit: 1, default: "Y", null: false, comment: "the indicator to specify if the guideline allows neft"
@@ -776,6 +824,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_122216) do
     t.string "last_action", limit: 1, default: "C"
     t.integer "approved_version", precision: 38
     t.integer "approved_id", precision: 38
+  end
+
+  create_table "inw_unapproved_records", force: :cascade do |t|
+    t.integer "inw_approvable_id", precision: 38
+    t.string "inw_approvable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "inward_remittances", force: :cascade do |t|
@@ -1294,6 +1349,52 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_122216) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
+  create_table "sc_backend_response_codes", force: :cascade do |t|
+    t.string "is_enabled", limit: 1, null: false, comment: "the flag which indicates whether this record is enabled or not"
+    t.string "sc_backend_code", limit: 20, null: false, comment: "the code assigned to the backend"
+    t.string "response_code", limit: 50, null: false, comment: "the response code sent by the backend"
+    t.string "fault_code", limit: 50, null: false, comment: "the fault code used for the backend response code"
+    t.datetime "created_at", null: false, comment: "the timestamp when the record was created"
+    t.datetime "updated_at", null: false, comment: "the timestamp when the record was last updated"
+    t.string "created_by", limit: 20, comment: "the person who creates the record"
+    t.string "updated_by", limit: 20, comment: "the person who updates the record"
+    t.integer "lock_version", precision: 38, default: 0, null: false, comment: "the version number of the record, every update increments this by 1"
+    t.string "approval_status", limit: 1, default: "U", null: false, comment: "the approval status of the record, A (approved), U (unapproved)"
+    t.string "last_action", limit: 1, default: "C", comment: "the last action on the record, C (create), U (update), D (delete)"
+    t.integer "approved_id", precision: 38, comment: "the id of the approved record that was edited, and resulted in this unapproved record "
+    t.integer "approved_version", precision: 38, comment: "the lock_version of the approved record at the time it was edited, and resulted in this unapproved record"
+    t.index ["sc_backend_code", "response_code", "approval_status"], name: "sc_backend_response_codes_01", unique: true
+  end
+
+  create_table "sc_backend_settings", force: :cascade do |t|
+    t.string "backend_code", limit: 50, null: false, comment: "the backend code for the setting"
+    t.string "service_code", limit: 50, null: false, comment: "the service code for the setting"
+    t.string "app_id", limit: 50, comment: "the app_id for the setting"
+    t.integer "settings_cnt", precision: 38, comment: "the count of settings for this setting"
+    t.string "setting1", comment: "the setting 1 for the setting"
+    t.string "setting2", comment: "the setting 2 for the setting"
+    t.string "setting3", comment: "the setting 3 for the setting"
+    t.string "setting4", comment: "the setting 4 for the setting"
+    t.string "setting5", comment: "the setting 5 for the setting"
+    t.string "setting6", comment: "the setting 6 for the setting"
+    t.string "setting7", comment: "the setting 7 for the setting"
+    t.string "setting8", comment: "the setting 8 for the setting"
+    t.string "setting9", comment: "the setting 9 for the setting"
+    t.string "setting10", comment: "the setting 10 for the setting"
+    t.datetime "created_at", null: false, comment: "the timestamp when the record was created"
+    t.datetime "updated_at", null: false, comment: "the timestamp when the record was last updated"
+    t.string "created_by", limit: 20, comment: "the person who creates the record"
+    t.string "updated_by", limit: 20, comment: "the person who updates the record"
+    t.integer "lock_version", precision: 38, default: 0, null: false, comment: "the version number of the record, every update increments this by 1"
+    t.string "last_action", limit: 1, default: "C", null: false, comment: "the last action (create, update) that was performed on the record"
+    t.string "approval_status", limit: 1, default: "U", null: false, comment: "the indicator to denote whether this record is pending approval or is approved"
+    t.integer "approved_version", precision: 38, comment: "the version number of the record, at the time it was approved"
+    t.integer "approved_id", precision: 38, comment: "the id of the record that is being updated"
+    t.string "is_std", limit: 1, default: "N", null: false, comment: "the flag which indicates whether the setting is std or not"
+    t.string "is_enabled", limit: 1, default: "N", null: false, comment: "the flag which indicates whether the setting is enabled or not"
+    t.index ["backend_code", "service_code", "app_id", "approval_status"], name: "sc_backend_settings_01", unique: true
+  end
+
 # Could not dump table "scheduler_job_args_tbl" because of following StandardError
 #   Unknown type 'SYS.ANYDATA' for column 'anydata_value'
 
@@ -1343,8 +1444,85 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_122216) do
     t.index ["name", "bank_code"], name: "sm_banks_02"
   end
 
+  create_table "sm_payments", force: :cascade do |t|
+    t.string "req_no", limit: 20, comment: "the Unique request no for the transaction "
+    t.string "req_version", limit: 10, comment: "the request version for the transaction"
+    t.datetime "req_timestamp", comment: "the Time at which the request was received"
+    t.string "partner_code", limit: 20, comment: "the unique code assigned to the sub member bank"
+    t.string "customer_id", limit: 15, comment: "the customer ID assigned to the partner in the CBS. Multiple customer ids can be assigned to a single partner."
+    t.string "debit_account_no", limit: 20, comment: "the account to be debited. This account should be belong to the customerID that is passed in the request."
+    t.string "rmtr_account_no", limit: 20, comment: "the remitters account no, as maintained in the partner system."
+    t.string "rmtr_account_ifsc", limit: 50, comment: "the IFSC of the remitters account, as maintained in the partner system"
+    t.string "rmtr_full_name", limit: 100, comment: "the full name of the remitter"
+    t.string "rmtr_address1", comment: "the address1 of the remitter"
+    t.string "rmtr_address2", comment: "the address2 of the remitter"
+    t.string "rmtr_address3", comment: "the address3 of the remitter"
+    t.string "rmtr_postal_code", limit: 10, comment: "the postal code of the remitter"
+    t.string "rmtr_city", limit: 100, comment: "the city name of the remitter"
+    t.string "rmtr_state", limit: 100, comment: "the state name of the remitter"
+    t.string "rmtr_country", limit: 100, comment: "the country name of the remitter"
+    t.string "rmtr_mobile_no", limit: 10, comment: "the mobile no of the remitter"
+    t.string "rmtr_email_id", limit: 100, comment: " the email id of the remitter"
+    t.string "bene_full_name", limit: 100, comment: "the full name of the beneficiary"
+    t.string "bene_address1", comment: "the address1 of the beneficiary"
+    t.string "bene_address2", comment: "the address2 of the beneficiary"
+    t.string "bene_address3", comment: "the address3 of the beneficiary"
+    t.string "bene_postal_code", limit: 100, comment: "the postal code of the beneficiary"
+    t.string "bene_city", limit: 100, comment: "the city name of the beneficiary"
+    t.string "bene_state", limit: 100, comment: "the state name of the beneficiary"
+    t.string "bene_country", limit: 100, comment: "the country name of the beneficiary"
+    t.string "bene_mobile_no", limit: 10, comment: "the mobile no of the beneficiary"
+    t.string "bene_email_id", limit: 100, comment: " the email id of the beneficiary"
+    t.string "bene_account_no", limit: 20, comment: "the beneficiary account number"
+    t.string "bene_account_ifsc", limit: 50, comment: "the ifsc code of the beneficiary account"
+    t.string "req_transfer_type", limit: 4, comment: "the requested transfer type, the one use can be different"
+    t.string "transfer_ccy", limit: 5, comment: "the transfer amounts currency"
+    t.integer "transfer_amount", precision: 38, comment: "the transfer amount"
+    t.string "rmtr_to_bene_note", comment: "the narrative for transaction of remitter to beneficiary"
+    t.string "rep_version", limit: 20, comment: "the number comes in the reply, this reflects the version that is known to the server"
+    t.string "rep_no", limit: 10, comment: "the unique response no sent by API"
+    t.integer "attempt_no", precision: 38, comment: "the attempt no returned in the response by the api"
+    t.string "transfer_type", limit: 4, comment: "the transfer type, that was used by the service"
+    t.string "status_code", limit: 50, comment: "the status of the transaction"
+    t.string "bank_ref_no", limit: 50, comment: "the reference number generated by the bank, and passed on to the payment network"
+    t.string "fault_code", limit: 50, comment: "the code that identifies the exception, if an exception occured in the ESB"
+    t.string "fault_subcode", limit: 50, comment: "the error code that the third party will return"
+    t.string "fault_reason", limit: 1000, comment: "the english reason of the exception, if an exception occurred in the ESB"
+    t.datetime "rep_timestamp", comment: "the Time at which the response was received"
+    t.index ["req_no", "attempt_no"], name: "sm_payments_01", unique: true
+  end
+
 # Could not dump table "sqlplus_product_profile" because of following StandardError
 #   Unknown type 'LONG' for column 'long_value'
+
+  create_table "students", force: :cascade do |t|
+    t.string "name"
+    t.string "stream"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "su_customers", force: :cascade do |t|
+    t.string "account_no", limit: 20, comment: "the debit account no of the corporate, duplicate entries are not allowed"
+    t.string "customer_id", limit: 15, comment: "the customer id of the corporate, duplicate entries are not allowed"
+    t.string "pool_account_no", limit: 20, comment: "the pool account no for the corporate, multiple corporates can share a pool account"
+    t.string "pool_customer_id", limit: 20, comment: "the customer id for the pool account"
+    t.string "is_enabled", limit: 1, comment: "the flag to decide if the account is enabled or not "
+    t.string "created_by", limit: 20, comment: "the person who creates the record"
+    t.string "updated_by", limit: 20, comment: "the person who updates the record"
+    t.datetime "created_at", comment: "the timestamp when the file was created"
+    t.datetime "updated_at", comment: "the timestamp when the record was last updated"
+    t.integer "lock_version", precision: 38, default: 0, comment: "the version number of the record every update increments this by 1"
+    t.string "approval_status", limit: 1, default: "U", comment: "the indicator to denote whether this record is pending approval or is approved"
+    t.string "last_action", limit: 1, default: "C", comment: "the last action create or update that was performed on the record"
+    t.integer "approved_version", precision: 38, comment: "the version number of the record at the time it was approved"
+    t.integer "approved_id", precision: 38, comment: "the id of the record that is being updated"
+    t.string "customer_name", limit: 100, comment: "the name of the customer"
+    t.decimal "max_distance_for_name"
+    t.string "ops_email"
+    t.string "rm_email"
+    t.index ["customer_id", "account_no", "approval_status"], name: "uk_su_customers_1", unique: true
+  end
 
   create_table "udf_attributes", force: :cascade do |t|
     t.string "class_name", limit: 100, null: false

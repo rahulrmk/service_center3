@@ -75,7 +75,7 @@ Rails.application.routes.draw do
 
   resources :sm_banks do
     member do
-      put :resend_notification
+      get :resend_notification
     end
   end
 
@@ -107,12 +107,12 @@ Rails.application.routes.draw do
   resources :iam_cust_users, except: :index do
     collection do
       get :index
-      put :index
+      get :index
       get :ldap_user_list
     end
     member do
       put :try_login
-      put :add_user
+      post :add_user
       put :delete_user
       put :resend_password
     end

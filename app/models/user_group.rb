@@ -1,5 +1,5 @@
 class UserGroup < ApplicationRecord
-  include Approval2::ModelAdditions
+  #include Approval2::ModelAdditions
   
   belongs_to :user
   belongs_to :group

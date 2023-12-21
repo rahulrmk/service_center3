@@ -1,3 +1,3 @@
 class UnapprovedRecord < ActiveRecord::Base
-  belongs_to :approvable, :polymorphic => true#, :unscoped => true
+  belongs_to :approvable,-> {:polymorphic => true,{unscoped: true}}
 end

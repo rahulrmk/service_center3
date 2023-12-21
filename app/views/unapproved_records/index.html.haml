@@ -3,7 +3,7 @@
 %br
 - unless @records.nil?
   %br
-  = will_paginate @records
+  = will_paginate @records, :page_links => true
   %br
   %table.table.table-bordered.table-striped.table-hover
     .thead
@@ -18,6 +18,10 @@
             = record[:record_type]
           %td{:style=>'text-align:left;'}
             - if record[:record_type] == 'IncomingFile'
+              = link_to record[:record_count], {:controller => record[:record_type].tableize, :action => :index, :approval_status => 'U', :sc_service => params[:sc_service]}
+            - elsif record[:record_type] == 'EcollectRequestTemplate'
+              = link_to record[:record_count], {:controller => record[:record_type].tableize, :action => :index, :approval_status => 'U', :sc_service => params[:sc_service]}
+            - elsif record[:record_type] == 'EcollectResponseTemplate'
               = link_to record[:record_count], {:controller => record[:record_type].tableize, :action => :index, :approval_status => 'U', :sc_service => params[:sc_service]}
             - else
               = link_to record[:record_count], {:controller => record[:record_type].tableize, :action => :index, :approval_status => 'U'}

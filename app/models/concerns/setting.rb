@@ -13,10 +13,10 @@ module Setting
 
     validate :settings_should_be_correct
 
-    validates_presence_of :setting1_name, if: "setting1_name.blank? && !setting2_name.blank?", message: "can't be blank when Setting2 name is present"
-    validates_presence_of :setting2_name, if: "setting2_name.blank? && !setting3_name.blank?", message: "can't be blank when Setting3 name is present"
-    validates_presence_of :setting3_name, if: "setting3_name.blank? && !setting4_name.blank?", message: "can't be blank when Setting4 name is present"
-    validates_presence_of :setting4_name, if: "setting4_name.blank? && !setting5_name.blank?", message: "can't be blank when Setting5 name is present"
+    validates_presence_of :setting1_name, if: -> {"setting1_name.blank? && !setting2_name.blank?"}, message: "can't be blank when Setting2 name is present"
+    validates_presence_of :setting2_name, if: -> {"setting2_name.blank? && !setting3_name.blank?"}, message: "can't be blank when Setting3 name is present"
+    validates_presence_of :setting3_name, if: -> {"setting3_name.blank? && !setting4_name.blank?"}, message: "can't be blank when Setting4 name is present"
+    validates_presence_of :setting4_name, if: -> {"setting4_name.blank? && !setting5_name.blank?"}, message: "can't be blank when Setting5 name is present"
 
     before_save :set_settings_cnt
     before_save :encrypt_password_settings
@@ -30,11 +30,11 @@ module Setting
       store :setting9, accessors: [:setting9_name, :setting9_type, :setting9_value], coder: JSON
       store :setting10, accessors: [:setting10_name, :setting10_type, :setting10_value], coder: JSON
 
-      validates_presence_of :setting5_name, if: "setting5_name.blank? && !setting6_name.blank?", message: "can't be blank when Setting6 name is present"
-      validates_presence_of :setting6_name, if: "setting6_name.blank? && !setting7_name.blank?", message: "can't be blank when Setting7 name is present"
-      validates_presence_of :setting7_name, if: "setting7_name.blank? && !setting8_name.blank?", message: "can't be blank when Setting8 name is present"
-      validates_presence_of :setting8_name, if: "setting8_name.blank? && !setting9_name.blank?", message: "can't be blank when Setting9 name is present"
-      validates_presence_of :setting9_name, if: "setting9_name.blank? && !setting10_name.blank?", message: "can't be blank when Setting10 name is present"
+      validates_presence_of :setting5_name, if: -> {"setting5_name.blank? && !setting6_name.blank?"}, message: "can't be blank when Setting6 name is present"
+      validates_presence_of :setting6_name, if: -> {"setting6_name.blank? && !setting7_name.blank?"}, message: "can't be blank when Setting7 name is present"
+      validates_presence_of :setting7_name, if: -> {"setting7_name.blank? && !setting8_name.blank?"}, message: "can't be blank when Setting8 name is present"
+      validates_presence_of :setting8_name, if: -> {"setting8_name.blank? && !setting9_name.blank?"}, message: "can't be blank when Setting9 name is present"
+      validates_presence_of :setting9_name, if: -> {"setting9_name.blank? && !setting10_name.blank?"}, message: "can't be blank when Setting10 name is present"
     end
 
     def set_settings_cnt

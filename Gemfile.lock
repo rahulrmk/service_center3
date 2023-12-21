@@ -20,13 +20,6 @@ GIT
     encrypted_field (0.1.7)
 
 GIT
-  remote: https://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:x-oauth-basic@github.com/skillmine1234/qg-ecol.git
-  revision: 306c9338bad8e0d3d7689a5148092d82c3545639
-  specs:
-    qg-ecol (13.5.0)
-      rails (= 7.0.4)
-
-GIT
   remote: https://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:x-oauth-basic@github.com/skillmine1234/qg-ft.git
   revision: b7c84e65355d6aa8425787ff614eed62b2b5d9bb
   specs:
@@ -35,19 +28,75 @@ GIT
       pundit
       rails (>= 4.2.2)
 
-GIT
-  remote: https://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:x-oauth-basic@github.com/skillmine1234/qg-inw.git
-  revision: 6c496efa397799173e5e8727c017a32b754c1433
+PATH
+  remote: /home/rahul/Downloads/myapproval
+  specs:
+    approval2 (0.1.9)
+      audited
+      will_paginate
+
+PATH
+  remote: /home/rahul/project/qg-datapurge
+  specs:
+    qg-datapurge (0.7.0)
+      rails (~> 7.0.4)
+
+PATH
+  remote: /home/rahul/project/qg-ecol
+  specs:
+    qg-ecol (13.5.0)
+      rails (= 7.0.4)
+
+PATH
+  remote: /home/rahul/project/qg-icol
+  specs:
+    qg-icol (2.1.0)
+      rails (= 7.0.4)
+
+PATH
+  remote: /home/rahul/project/qg-inw
   specs:
     qg-inw (8.8.0)
       rails (= 7.0.4)
 
 PATH
-  remote: /home/rahul/project/approval2
+  remote: /home/rahul/project/qg-ns
   specs:
-    approval2 (0.2.0)
-      audited
-      unscoped_associations
+    qg-ns (1.3.0)
+      rails (~> 7.0.4)
+
+PATH
+  remote: /home/rahul/project/qg-obdx
+  specs:
+    qg-obdx (6.4.0)
+      rails (= 7.0.4)
+
+PATH
+  remote: /home/rahul/project/qg-rr
+  specs:
+    qg-rr (1.0.7)
+      rails (~> 7.0.4)
+
+PATH
+  remote: /home/rahul/project/qg-sc
+  specs:
+    qg-sc (4.1.0)
+      rails (~> 7.0.4)
+
+PATH
+  remote: /home/rahul/project/qg-sm
+  specs:
+    qg-sm (2.0.0)
+      rails (~> 7.0.4)
+
+PATH
+  remote: /home/rahul/project/rr_new_version
+  specs:
+    rp (1.2.0)
+      haml-rails
+      net-scp
+      pundit
+      rails (~> 7.0.4)
       will_paginate
 
 GEM
@@ -353,7 +402,7 @@ GEM
       responders (>= 2, < 4)
     jose (1.1.3)
       hamster
-    jquery-rails (4.5.1)
+    jquery-rails (4.6.0)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
@@ -602,8 +651,6 @@ GEM
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unaccent (0.4.0)
-    unscoped_associations (0.6.5)
-      activerecord
     warden (1.2.9)
       rack (>= 2.0.9)
     webmock (3.18.1)
@@ -681,7 +728,7 @@ DEPENDENCIES
   importmap-rails
   inherited_resources
   jose (~> 1.1, >= 1.1.3)
-  jquery-rails
+  jquery-rails (~> 4.6)
   jquery-turbolinks
   jsbundling-rails
   lazy_columns
@@ -700,14 +747,22 @@ DEPENDENCIES
   progress_bar (~> 1.0.0)
   puma (~> 5.0)
   pundit (~> 2.3)
+  qg-datapurge!
   qg-ecol!
   qg-ft!
+  qg-icol!
   qg-inw!
+  qg-ns!
+  qg-obdx!
+  qg-rr!
+  qg-sc!
+  qg-sm!
   rails (= 7.0.4)
   rails_12factor
   rake (~> 13.0, >= 13.0.6)
   rb-readline
   rolify (>= 3.2.0)
+  rp!
   rspec
   ruby-oci8 (~> 2.2, >= 2.2.12)
   ruby-plsql
