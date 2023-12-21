@@ -124,23 +124,23 @@ gem 'will_paginate', '~> 4.0'
 
 #gem 'activerecord-oracle_enhanced-adapter'
 
-gem 'qg-inw',:path=>'/home/rahul/project/qg-inw'#:git =>"https://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:x-oauth-basic@github.com/skillmine1234/qg-inw.git"#, branch: 'inw_changes'
-gem 'qg-ft',:git=>"https://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:x-oauth-basic@github.com/skillmine1234/qg-ft.git"
-#gem 'qg-inw',:path=>"/home/rahul/project/qg-inw"
-#gem 'qg-ft', :path=>"/home/rahul/project/qg-ft"
+# gem 'qg-inw',:path=>'/home/rahul/project/qg-inw'#:git =>"https://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:x-oauth-basic@github.com/skillmine1234/qg-inw.git"#, branch: 'inw_changes'
+# gem 'qg-ft',:git=>"https://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:x-oauth-basic@github.com/skillmine1234/qg-ft.git"
+# #gem 'qg-inw',:path=>"/home/rahul/project/qg-inw"
+# #gem 'qg-ft', :path=>"/home/rahul/project/qg-ft"
 
-#gem 'qg-ecol',:git=>"https://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:x-oauth-basic@github.com/skillmine1234/qg-ecol.git"
-gem 'qg-ecol',:path=>"/home/rahul/project/qg-ecol"
+# #gem 'qg-ecol',:git=>"https://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:x-oauth-basic@github.com/skillmine1234/qg-ecol.git"
+# gem 'qg-ecol',:path=>"/home/rahul/project/qg-ecol"
 
-gem 'qg-sc',:path=>"/home/rahul/project/qg-sc"
-gem 'qg-obdx',:path=>"/home/rahul/project/qg-obdx"
-gem 'qg-sm',:path=>"/home/rahul/project/qg-sm"
-#gem 'qg-rc',:path=>"/home/rahul/project/qg-rc"
-gem 'qg-rr',:path=>"/home/rahul/project/qg-rr"
-gem 'qg-datapurge',:path=>"/home/rahul/project/qg-datapurge"
-gem 'qg-ns',:path=>"/home/rahul/project/qg-ns"
-gem 'rp',:path=>"/home/rahul/project/rr_new_version"
-gem 'qg-icol',:path=>"/home/rahul/project/qg-icol"
+# gem 'qg-sc',:path=>"/home/rahul/project/qg-sc"
+# gem 'qg-obdx',:path=>"/home/rahul/project/qg-obdx"
+# gem 'qg-sm',:path=>"/home/rahul/project/qg-sm"
+# #gem 'qg-rc',:path=>"/home/rahul/project/qg-rc"
+# gem 'qg-rr',:path=>"/home/rahul/project/qg-rr"
+# gem 'qg-datapurge',:path=>"/home/rahul/project/qg-datapurge"
+# gem 'qg-ns',:path=>"/home/rahul/project/qg-ns"
+# gem 'rp',:path=>"/home/rahul/project/rr_new_version"
+# gem 'qg-icol',:path=>"/home/rahul/project/qg-icol"
 
 #gem 'rr_new_version',:path=>"/home/rahul/project/rr_new_version"
 # source "https://-p72Ximzp5o1QKVqLPgc@repo.fury.io/qg-ci/" do
