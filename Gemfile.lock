@@ -648,7 +648,6 @@ DEPENDENCIES
   cipher (~> 0.1.1)
   cocoon (~> 1.2, >= 1.2.15)
   coffee-rails
-  compass
   compass-normalize (~> 1.5)
   compass-rails (~> 4.0)
   country_select!
