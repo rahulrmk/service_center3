@@ -6,6 +6,15 @@ GIT
       countries (~> 5.0)
 
 GIT
+  remote: https://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:x-oauth-basic@github.com/skillmine1234/approval2.git
+  revision: 38c2ae6e75f3cbb782e8254f4af5e73d0856e5a3
+  specs:
+    approval2 (0.2.0)
+      audited
+      unscoped_associations
+      will_paginate
+
+GIT
   remote: https://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:x-oauth-basic@github.com/skillmine1234/devise_security_extension.git
   revision: a8f7965253d90f0a5d884374168c3c5d78ec459a
   specs:
@@ -594,6 +603,8 @@ GEM
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unaccent (0.4.0)
+    unscoped_associations (0.6.5)
+      activerecord
     warden (1.2.9)
       rack (>= 2.0.9)
     webmock (3.19.1)
@@ -623,6 +634,7 @@ DEPENDENCIES
   activerecord-oracle_enhanced-adapter (~> 7.0.2)
   acts_as_commentable (= 3.0.1)
   acts_as_list
+  approval2!
   audited
   bcdatabase
   bundler
