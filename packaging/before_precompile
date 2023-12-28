@@ -21,5 +21,5 @@ unzip "instantclient-sqlplus-linux.x64-21.12.0.0.0dbru.zip"
 
 sh -c "echo /tmp/oracle/instantclient_21_12/etc/ld.so.conf.d/oracle-instantclient.conf" 
 
-cd instantclient_21_1
+cd instantclient_21_12
 ln -s libclntsh.so.21.1 libclntsh.so
