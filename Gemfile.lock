@@ -86,14 +86,6 @@ GIT
       rails (~> 7.0.4)
 
 GIT
-  remote: https://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:x-oauth-basic@github.com/skillmine1234/qg-sc.git
-  revision: 8045e915a7110df92fa00719a15237802655e7e6
-  branch: changes_new_sc
-  specs:
-    qg-sc (11.0.1)
-      rails (~> 7.0.4)
-
-GIT
   remote: https://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:x-oauth-basic@github.com/skillmine1234/qg-sm.git
   revision: 55f73407d83775c545fc7c523f3fe692249b5419
   branch: main
@@ -764,7 +756,6 @@ DEPENDENCIES
   qg-ns!
   qg-rc!
   qg-rr!
-  qg-sc!
   qg-sm!
   rails (= 7.0.4)
   rails_12factor
@@ -772,7 +763,6 @@ DEPENDENCIES
   rb-readline
   rolify (>= 3.2.0)
   rspec
-  ruby-plsql
   rufus-scheduler
   saas (~> 0.1.1)
   sass-rails (>= 5)

@@ -133,7 +133,7 @@ gem 'qg-ft',:git=>"https://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:x-oauth-basi
 gem 'qg-ecol',:git=>"https://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:x-oauth-basic@github.com/skillmine1234/qg-ecol.git", branch: 'main'
 #gem 'qg-ecol',:path=>"/home/rahul/project/qg-ecol"
 
-gem 'qg-sc',:git=>"https://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:x-oauth-basic@github.com/skillmine1234/qg-sc.git", branch: 'changes_new_sc'
+#gem 'qg-sc',:git=>"https://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:x-oauth-basic@github.com/skillmine1234/qg-sc.git", branch: 'changes_new_sc'
 #gem 'qg-obdx',:git=>"https://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:x-oauth-basic@github.com/skillmine1234/qg-obdx.git", branch: 'changes_new_sc'
 gem 'qg-sm',:git=>"https://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:x-oauth-basic@github.com/skillmine1234/qg-sm.git", branch: 'main' #:path=>"/home/rahul/project/qg-sm"
 gem 'qg-rc',:git=>"https://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:x-oauth-basic@github.com/skillmine1234/qg-rc.git", branch: 'main' #:path=>"/home/rahul/project/qg-sm"
@@ -182,7 +182,7 @@ group :production do
    gem 'bcdatabase'
    gem 'passenger'
    gem 'rails_12factor'
-   gem 'ruby-plsql'
+   #gem 'ruby-plsql'
    gem 'activerecord-oracle_enhanced-adapter', '~> 7.0.2'
    #gem 'ruby-oci8', '~> 2.2', '>= 2.2.12'
 
